@@ -1,19 +1,24 @@
-import java.util.PriorityQueue;
+
+import java.util.Arrays;
+
 public class Solution {
-    //maxheap
+    //recursion
     public int lastStoneWeight(int[] stones) {
 
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
-
-        for (int stone : stones)
-            maxHeap.add(stone);
-
-        while (maxHeap.size()>1){
-            int stone1 = maxHeap.remove();
-            int stone2 = maxHeap.remove();
-            if (stone2 != stone1)
-                maxHeap.add(stone1-stone2);
+        int c = stones.length;
+        while (c>1){
+            stones = parser(stones);
+            c--;
         }
-        return maxHeap.isEmpty() ? 0 : maxHeap.remove();
+
+        return stones[0];
+    }
+    static int[] parser(int[] stones){
+        int length = stones.length;
+
+        Arrays.sort(stones);
+        stones[length-2] = stones[length-1] - stones[length-2];
+
+        return Arrays.copyOf(stones,stones.length-1);
     }
 }
