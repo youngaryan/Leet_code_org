@@ -1,7 +1,7 @@
-import java.util.ArrayList;
+import java.util.HashSet;
 public class Solution {
     public int[] circularGameLosers(int n, int k) {
-        ArrayList<Integer> list = new ArrayList<>();
+        HashSet<Integer> list = new HashSet<>();
 
         int j = 1;
         int initial = 1;
