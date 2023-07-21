@@ -1,21 +1,27 @@
-public class Solution{
+public class Solution {
     public int divide(int dividend, int divisor) {
-
-        int postive = 1;
-        if(dividend<0){postive = -postive; dividend = -dividend;}
-        if(divisor<0) {postive = -postive; divisor = -divisor;}
+        
+        if(dividend == 0 ) return 0;
+        if(dividend ==divisor)return 1;
 
         
-        if(dividend == 0)return 0;
-        if(divisor == 1) return dividend*postive;
-        if(dividend == divisor) return 1;
 
-        int res = 0;
-        while(dividend > divisor){
-            dividend-=divisor;
-            res++;
+        int sign = 1;
+        int exe = 0 ;
+        if (dividend < 0 && dividend > -2147483648){dividend*=-1; sign *= -1;
+        }else if(dividend <= -2147483648){dividend = 2147483647;  sign*=-1;exe+=sign;}
+        if (divisor < 0) {divisor*=-1; sign *= -1;}
+        if(divisor == 1) return sign*dividend + exe;
+
+        int count = 0;
+        
+
+        while(dividend > 0){
+            dividend -= divisor;
+            if(dividend>0){count++;}
+            
         }
 
-        return postive *res;
+        return sign*count + exe;
     }
 }
