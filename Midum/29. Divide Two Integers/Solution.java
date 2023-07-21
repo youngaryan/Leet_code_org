@@ -1,27 +1,28 @@
 public class Solution {
     public int divide(int dividend, int divisor) {
         
-        if(dividend == 0 ) return 0;
-        if(dividend ==divisor)return 1;
+        if(dividend == 0)return 0;
+        if (divisor ==1)return dividend;
+        if(dividend == divisor)return 1;
+        if(dividend == -divisor)return -1;
+        if(dividend == Integer.MIN_VALUE && divisor == -1)return Integer.MAX_VALUE;
 
-        
 
         int sign = 1;
-        int exe = 0 ;
-        if (dividend < 0 && dividend > -2147483648){dividend*=-1; sign *= -1;
-        }else if(dividend <= -2147483648){dividend = 2147483647;  sign*=-1;exe+=sign;}
-        if (divisor < 0) {divisor*=-1; sign *= -1;}
-        if(divisor == 1) return sign*dividend + exe;
 
-        int count = 0;
-        
+        if(dividend< 0 )sign =-sign;
+        if(divisor < 0)sign = -sign;
+       
+        long absDividend = Math.abs((long) dividend);
+        long absDivisor = Math.abs((long) divisor);
 
-        while(dividend > 0){
-            dividend -= divisor;
-            if(dividend>0){count++;}
-            
+        int result = 0;
+
+        while (absDividend >= absDivisor) {
+            absDividend -= absDivisor;
+            result++;
         }
 
-        return sign*count + exe;
+        return sign * result;
     }
 }
