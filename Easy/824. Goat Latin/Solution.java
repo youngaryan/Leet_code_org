@@ -24,7 +24,7 @@ class Solution {
             for (int j = 0; j <= i; j++) {
                 temp +="a";
             }
-            result.append(temp);
+            result.append(temp+" ");
         }
         return result.substring(0, result.length()-1).toString();
     }
