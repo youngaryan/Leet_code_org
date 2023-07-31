@@ -7,7 +7,7 @@ class Solution {
         char tempRight;
 
 
-        for (int right = left; right < length; right++) {
+        for (int right = 0; right < length; right++) {
             tempRight = s.charAt(right);
             while(hashSet.contains(tempRight)){
                 hashSet.remove(s.charAt(left));
