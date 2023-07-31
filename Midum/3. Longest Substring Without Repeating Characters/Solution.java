@@ -8,7 +8,7 @@ class Solution {
 
         int max = 0;
         List<String> tokens = split(s);
-        System.out.println(tokens);
+        // System.out.println(tokens);
         
         for (String string : tokens) {
             if(string.length() > max) max = string.length();
@@ -22,19 +22,27 @@ class Solution {
         List<String> tStrings = new ArrayList<>();
         List<Character> temCharacters = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
-        char e; 
+        char e;
+        int left= 0 ,right = 1;
 
-        for (int i = 0; i < s.length(); i++) {
-            e = s.charAt(i);
+        while(right != s.length()){
+            e = s.charAt(right);
             if(temCharacters.contains(e)){
-                tStrings.add(stringBuilder.toString());
-                stringBuilder.delete(0, stringBuilder.length());
-                temCharacters.clear(); 
+                tStrings.add(stringBuilder.substring(left, right+1).toString());
+                stringBuilder.delete(left, left+1);
+                temCharacters.remove(e);
+                left ++;
             }
             temCharacters.add(e);
             stringBuilder.append(e);
+            right++;
+            // System.out.println("tStrings " + tStrings);
+            // System.out.println("tempChatr "+ temCharacters);
+            // System.out.println("sculider " +stringBuilder);
         }
         tStrings.add(stringBuilder.toString());
+    
+
         return tStrings;
     }
 }
