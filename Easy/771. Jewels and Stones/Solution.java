@@ -3,7 +3,7 @@ class Solution {
         int count = 0;
 
         for (int i = 0; i < stones.length(); i++) {
-            if (jewels.contains(String.valueOf(stones.charAt(i)))) {
+            if (jewels.indexOf(stones.charAt(i)) != -1) {
                 count++;
             }
         }
