@@ -26,6 +26,10 @@ class Solution {
             }
         }
 
+        max = Math.max(max, (length - 1) * ver[0]);
+
         return max;
     }
 }
+
+// [1,2,4,3]
