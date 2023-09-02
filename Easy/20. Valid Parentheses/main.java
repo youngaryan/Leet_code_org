@@ -3,4 +3,5 @@ public class Main {
         Solution s = new Solution();
         System.out.println(s.isValid("()"));
     }
+
 }
