@@ -3,42 +3,24 @@ class Solution {
         if (height.length == 2 || height.length == 1)
             return 0;
 
-        int leftH = 0, rightH = height.length - 1, maxL = 0, maxR = 0, intL = 0, intR = height.length - 1, maxWater = 0;
+        int maxWater = 0, maxLeft, maxRight;
 
-        while (leftH < rightH) {
-            if (height[leftH] > maxL) {
-                maxL = height[leftH];
-                intL = leftH;
+        for (int i = 0; i < height.length; i++) {
+            maxLeft = 0;
+            maxRight = 0;
+            for (int j = 0; j <= i; j++) {
+                if (height[j] > maxLeft) {
+                    maxLeft = height[j];
+                }
             }
-            if (height[rightH] > maxR) {
-                maxR = height[rightH];
-                intR = rightH;
+
+            for (int j = i + 1; j < height.length; j++) {
+                if (height[j] > maxRight) {
+                    maxRight = height[j];
+                }
             }
-            rightH--;
-            leftH++;
-        }
 
-        maxWater = Math.min(maxR, maxL) * (intR - intL - 1);
-
-        // System.out.println(maxWater);
-        maxWater += Math.min(height[0], maxL) * (intL);
-
-        maxWater += Math.min(height[height.length - 1], maxL) * (height.length - 2 - intR);
-        // System.out.println(maxWater);
-
-        // System.out.println("hL and intr " + height.length + " " + intR);
-        // 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }))
-
-        for (int i = intL + 1; i < intR; i++) {
-            maxWater -= height[i];
-        }
-
-        for (int i = 0; i < intL; i++) {
-            maxWater -= height[i];
-        }
-
-        for (int i = intR + 1; i < height.length - 3; i++) {
-            maxWater -= height[i];
+            maxWater = Math.max(maxWater, (maxWater + Math.min(maxRight, maxLeft) - height[i]));
         }
 
         return maxWater;
