@@ -1,34 +1,46 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 class Solution {
     public List<String> commonChars(String[] words) {
-        String first = words[0];
-        Set<Character> notResult = new HashSet<>();
-        List<String> result = new ArrayList<>();
+        Map<Character, Integer> commonCharsMap = new HashMap<>();
 
-        for (int i = 0; i < first.length(); i++) {
-            char current = first.charAt(i);
-            boolean foundInAll = true;
+        for (char c : words[0].toCharArray()) {
+            commonCharsMap.put(c, commonCharsMap.getOrDefault(c, 0) + 1);
+        }
 
-            for (int j = 1; j < words.length; j++) {
-                if (!words[j].contains(String.valueOf(current))) {
-                    foundInAll = false;
-                    break;
+        for (int i = 1; i < words.length; i++) {
+            Map<Character, Integer> currentWordMap = new HashMap<>();
+            for (char c : words[i].toCharArray()) {
+                currentWordMap.put(c, currentWordMap.getOrDefault(c, 0) + 1);
+            }
+
+            List<Character> toRemove = new ArrayList<>();
+            for (char key : commonCharsMap.keySet()) {
+                if (currentWordMap.containsKey(key)) {
+                    commonCharsMap.put(key, Math.min(commonCharsMap.get(key), currentWordMap.get(key)));
+                } else {
+                    toRemove.add(key);
                 }
             }
-            if (foundInAll) {
-                if (!notResult.contains(current)) {
-                    result.add(String.valueOf(current));
-                }
-            } else {
-                notResult.add(current);
+
+            for (char key : toRemove) {
+                commonCharsMap.remove(key);
+            }
+        }
+
+        List<String> result = new ArrayList<>();
+        for (Map.Entry<Character, Integer> entry : commonCharsMap.entrySet()) {
+            char character = entry.getKey();
+            int frequency = entry.getValue();
+
+            for (int i = 0; i < frequency; i++) {
+                result.add(String.valueOf(character));
             }
         }
 
         return result;
     }
-}// "bella", "label", "roller"
+}
