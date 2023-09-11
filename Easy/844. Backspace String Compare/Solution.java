@@ -1,50 +1,41 @@
 class Solution {
     public boolean backspaceCompare(String s, String t) {
-        int i = s.length() - 1, j = t.length() - 1;
+        int i = s.length() - 1, j = t.length() - 1, backCount;
 
-        while (i >= 0 && j >= 0) {
-            if (s.charAt(i) == '#') {
-                while (i > 0 && s.charAt(i - 1) == '#') {
-                    i -= 2;
+        while (i >= 0 || j >= 0) {
+            if (s.charAt(i) == '#' || t.charAt(j) == '#') {
+                if (s.charAt(i) == '#') {
+                    backCount = 2;
+                    while (backCount > 0) {
+                        i--;
+                        backCount--;
+                        if (s.charAt(i) == '#') {
+                            backCount += 2;
+                        }
+                    }
                 }
-                i -= 2;
-                continue;
-            }
-            if (j > -1 && t.charAt(j) == '#') {
-                while (t.charAt(j - 1) == '#') {
-                    j -= 2;
-                }
-                j -= 2;
-                continue;
-            }
 
-            if (s.charAt(i) != t.charAt(j)) {
-                return false;
-            }
-            i--;
-            j--;
-        }
-
-        while (i > -1) {
-            if (s.charAt(i) == '#') {
-                while (i > 0 && s.charAt(i - 1) == '#') {
-                    i -= 2;
+                if (t.charAt(j) == '#') {
+                    backCount = 2;
+                    while (backCount > 0) {
+                        j--;
+                        backCount--;
+                        if (t.charAt(j) == '#') {
+                            backCount += 2;
+                        }
+                    }
                 }
-                i -= 2;
             } else {
-                return false;
-            }
-        }
 
-        while (j > -1) {
-            if (t.charAt(j) == '#') {
-                while (j > 0 && t.charAt(j - 1) == '#') {
-                    j -= 2;
+                if (s.charAt(i) != t.charAt(j)) {
+                    return false;
+                } else {
+                    i--;
+                    j--;
                 }
-                j -= 2;
-            } else {
-                return false;
+
             }
+
         }
 
         return true;
