@@ -1,34 +1,50 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 class MyHashSet {
-
-    private List<Integer> integers = new ArrayList<>();
+    List<Integer>[] buckets;
+    private final int CAPACITY = 10000;
 
     public MyHashSet() {
+        buckets = new LinkedList[CAPACITY];
 
-    }
-
-    public void add(int key) {
-        if (!integers.contains(key)) {
-            integers.add(key);
+        for (int i = 0; i < CAPACITY; i++) {
+            buckets[i] = new LinkedList<>();
         }
     }
 
+    public int hash(int key) {
+        return key % CAPACITY;
+    }
+
+    public void add(int key) {
+        if (contains(key)) {
+            return;
+        }
+        int index = hash(key);
+
+        List<Integer> bucket = buckets[index];
+        bucket.add(key);
+
+    }
+
     public void remove(int key) {
-        for (int i = 0; i < integers.size(); i++) {
-            if (integers.get(i) == key) {
-                integers.remove(i);
-                break;
-            }
+        if (contains(key)) {
+            int index = hash(key);
+
+            List<Integer> bucket = buckets[index];
+
+            bucket.remove((Integer) key);
         }
     }
 
     public boolean contains(int key) {
-        return integers.contains(key);
+        int index = hash(key);
+
+        List<Integer> bucket = buckets[index];
+        return bucket.contains(key);
     }
 }
-
 /**
  * Your MyHashSet object will be instantiated and called as such:
  * MyHashSet obj = new MyHashSet();
