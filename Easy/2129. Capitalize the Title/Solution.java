@@ -1,22 +1,26 @@
+
 class Solution {
     public String capitalizeTitle(String title) {
 
-        String[] broken = title.split(" ");
+        char[] charArrya = title.toCharArray();
+        int length = charArrya.length;
 
-        StringBuilder result = new StringBuilder();
+        // System.out.println(Arrays.toString(charArrya));
 
-        for (String string : broken) {
-            string = string.toLowerCase();
+        for (int i = 0; i < length; i++) {
 
-            if (string.length() > 2) {
-                result.append(string.substring(0, 1).toUpperCase() + string.substring(1) + " ");
-            } else {
-                result.append(string + " ");
+            int firstIndex = i;
 
+            while (i < length && charArrya[i] != ' ') {
+                charArrya[i] = Character.toLowerCase(charArrya[i]);
+                i++;
             }
 
+            if (i - firstIndex > 2) {
+                charArrya[firstIndex] = (char) (charArrya[firstIndex] - 32);
+            }
         }
 
-        return result.toString().trim();
+        return String.valueOf(charArrya);
     }
 }
