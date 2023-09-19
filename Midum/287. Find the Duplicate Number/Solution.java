@@ -1,18 +1,20 @@
-import java.util.HashSet;
-import java.util.Set;
-
 class Solution {
     public int findDuplicate(int[] nums) {
 
-        Set<Integer> hold = new HashSet<>();
+        int slow = 0, fast = 0;
 
-        for (int i = 0; i < nums.length; i++) {
-            hold.add(nums[i]);
-            if (hold.size() != i + 1) {
-                return nums[i];
-            }
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (fast != slow);
+
+        slow = 0;
+
+        while (fast != slow) {
+            slow = nums[slow];
+            fast = nums[fast];
         }
 
-        return -1;
+        return slow;
     }
 }
