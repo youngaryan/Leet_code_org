@@ -1,9 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         MyHashMap hashMap = new MyHashMap();
-
-        hashMap.put(11, 0);
-        System.out.println(hashMap.get(11));
+        System.out.println(hashMap);
     }
 }
 
