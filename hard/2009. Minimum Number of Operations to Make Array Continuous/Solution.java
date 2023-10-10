@@ -1,23 +1,29 @@
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 class Solution {
     public int minOperations(int[] nums) {
-        Set<Integer> set = new HashSet<>();
         int min = Integer.MAX_VALUE;
+
+        Set<Integer> set = new HashSet<>();
 
         for (int i : nums) {
             set.add(i);
         }
 
-        for (int i = 0; i < nums.length; i++) {
-            int localMin = 0;
-            for (int j = 0; j < nums.length; j++) {
-                if (!set.contains(nums[i] + j)) {
-                    localMin++;
-                }
+        int l = set.size();
+        Arrays.sort(nums);
+
+        int r = 0;
+        for (int i = 0; i < l; i++) {
+            while (r < l && nums[r] < nums[i] + l) {
+                r++;
             }
-            min = Math.min(min, localMin);
+
+            int w = r - i;
+
+            min = Math.min(min, l - w);
         }
         return min;
     }
