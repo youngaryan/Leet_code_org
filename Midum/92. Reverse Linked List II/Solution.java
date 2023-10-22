@@ -3,25 +3,27 @@ class Solution {
         if (left == right) {
             return head;
         }
+        int currentPos = 1;
+        ListNode currNode = head, start = head;
 
-        ListNode reverse = new ListNode();
-
-        return null;
-    }
-
-    public ListNode reverseList(ListNode head) {
-        ListNode currentNode = head;
-        ListNode prev = null;
-
-        while (currentNode != null) {
-
-            ListNode next = currentNode.next;
-            currentNode.next = prev;
-            prev = currentNode;
-
-            currentNode = next;
-
+        while (currentPos < left) {
+            start = currNode;
+            currNode = currNode.next;
+            currentPos++;
         }
-        return prev;
+
+        ListNode newList = null, tail = currNode;
+
+        while (currentPos <= right) {
+            ListNode next = currNode.next;
+            currNode.next = newList;
+            newList = currNode;
+            currNode = next;
+            currentPos++;
+        }
+
+        start.next = newList;
+        tail.next = currNode;
+        return left == 1 ? newList : head;
     }
 }
