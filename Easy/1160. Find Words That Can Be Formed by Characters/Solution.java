@@ -1,41 +1,28 @@
-import java.util.HashMap;
-
 class Solution {
     public int countCharacters(String[] words, String chars) {
         int resultLen = 0;
+        int[] counts = new int[26];
 
-        for (String string : words) {
-            resultLen += helper(string, chars);
+        for (int i = 0; i < chars.length(); i++) {
+            counts[chars.charAt(i) - 'a']++;
         }
 
+        for (String s : words) {
+            resultLen += canbeFormed(s, counts);
+        }
         return resultLen;
     }
 
-    private int helper(String string, String chars) {
-        if (string.length() > chars.length()) {
-            return 0;
-        }
+    private int canbeFormed(String word, int[] counts) {
+        int[] copy = new int[26];
+        for (int i = 0; i < word.length(); i++) {
+            int wordChar = word.charAt(i) - 'a';
+            copy[wordChar]++;
 
-        boolean check = true;
-        char temp;
-
-        HashMap<Character, Integer> map1 = new HashMap<>();
-        for (int i = 0; i < string.length(); i++) {
-            temp = string.charAt(i);
-            map1.put(temp, map1.getOrDefault(temp, 0) + 1);
-        }
-
-        HashMap<Character, Integer> map2 = new HashMap<>();
-        for (int i = 0; i < chars.length(); i++) {
-            temp = chars.charAt(i);
-            map2.put(temp, map2.getOrDefault(temp, 0) + 1);
-        }
-
-        for (Character character : map1.keySet()) {
-            if (!map2.containsKey(character) || map2.get(character) < map1.get(character)) {
-                check = false;
+            if (counts[wordChar] < copy[wordChar]) {
+                return 0;
             }
         }
-        return check ? string.length() : 0;
+        return word.length();
     }
 }
