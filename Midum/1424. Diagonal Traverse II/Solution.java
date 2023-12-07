@@ -1,34 +1,33 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 class Solution {
     public int[] findDiagonalOrder(List<List<Integer>> nums) {
-        List<List<Integer>> integers = new ArrayList<>();
-        int temp;
-        List<Integer> t;
-
+        ArrayList<ArrayList<Integer>> integers = new ArrayList<>();
+        ArrayList<Integer> temp;
         for (int i = 0; i < nums.size(); i++) {
-            t = new ArrayList<>();
-            for (int j = 0; j < nums.size(); j++) {
-                temp = nums.get(i).get(j);
-                try {
-                    t = integers.get(i + j);
-                    t.add(temp);
+            for (int j = 0; j < nums.get(i).size(); j++) {
+                if (integers.size() <= i + j) {
+                    temp = new ArrayList<>();
+                    temp.add(nums.get(i).get(j));
+                    integers.add(i + j, temp);
+                } else {
+                    integers.get(j + i).add(nums.get(i).get(j));
 
-                } catch (Exception e) {
-                    t.add(temp);
-                    integers.add(i + j, t);
-                    integers.add(t);
                 }
             }
         }
-        // [1,4,2,7,5,3,8,6,9]
-        System.out.println((integers));
-        System.out.println("------------------------------------------");
-        System.out.println(nums);
-        return null;
+
+        int[] result = new int[nums.size() * nums.get(0).size()];
+        int pointer = 0;
+
+        for (int i = 0; i < integers.size(); i++) {
+            for (int j = 0; j < integers.get(i).size(); j++) {
+
+                    result[pointer] = integers.get(i).get(j);
+                    pointer++;
+            }
+        }
+        return result;
     }
 }
