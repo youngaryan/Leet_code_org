@@ -5,6 +5,7 @@ class Solution {
     public int[] findDiagonalOrder(List<List<Integer>> nums) {
         ArrayList<ArrayList<Integer>> integers = new ArrayList<>();
         ArrayList<Integer> temp;
+
         for (int i = 0; i < nums.size(); i++) {
             for (int j = 0; j < nums.get(i).size(); j++) {
                 if (integers.size() <= i + j) {
@@ -23,9 +24,13 @@ class Solution {
 
         for (int i = 0; i < integers.size(); i++) {
             for (int j = 0; j < integers.get(i).size(); j++) {
-
+                if (i % 2 == 0) {
+                    result[pointer] = integers.get(i).get(integers.get(i).size() - j - 1);
+                    pointer++;
+                } else {
                     result[pointer] = integers.get(i).get(j);
                     pointer++;
+                }
             }
         }
         return result;
