@@ -1,34 +1,32 @@
 
 class Solution {
     public int guessNumber(int n) {
-        int left = 1, right = n, mid = (left+right)/2, indicator;
-        
-        while(guess(mid) != 0){
-            indicator = guess(mid);
+        int left = 0, right = n;
 
-            if(indicator == 1){
-                right = mid;
-            }else {
-                left = mid;
+        while (left <= right) {
+            int mid = left + (right - left) /2;
+            int result = guess(mid);
+
+
+            if (result == 0) {
+                return mid;
+            } else if (result == -1) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
             }
-            mid = (left+right)/2;
         }
-
-        return mid;
+        return -1;
     }
-
-
-
-
 
     private int guess(int guess) {
 
-        int t = 1;
+        int t = 1702766719;
 
-        if (guess>t) {
-            return 1;
-        } else if(guess < t){
+        if (guess > t) {
             return -1;
+        } else if (guess < t) {
+            return 1;
         }
 
         return 0;
