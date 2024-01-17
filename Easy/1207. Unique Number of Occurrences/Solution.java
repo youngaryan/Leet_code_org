@@ -1,31 +1,19 @@
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 class Solution {
     public boolean uniqueOccurrences(int[] arr) {
-
-        HashMap<Integer, Integer> temp = new HashMap<>();
-        ArrayList<Integer> integers = new ArrayList<>();
-        ArrayList<Integer> result = new ArrayList<>();
-        int inside;
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        HashSet<Integer> hashSet = new HashSet<>();
 
         for (int i : arr) {
-            if (!temp.containsKey(i)) {
-                temp.put(i, 1);
-            } else {
-                temp.put(i, temp.get(i) + 1);
-            }
-            if (!integers.contains(i)) {
-                integers.add(i);
-            }
+            hashMap.put(i, hashMap.getOrDefault(i, 0) + 1);
         }
 
-        for (int i = 0; i < integers.size(); i++) {
-            inside = temp.get(integers.get(i));
-            if (result.contains(inside)) {
+        for (int integer : hashMap.values()) {
+            if (!hashSet.add(integer)) {
                 return false;
             }
-            result.add(inside);
         }
 
         return true;
