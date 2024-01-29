@@ -10,23 +10,16 @@ class MyQueue {
     }
 
     public void push(int x) {
-        for (int i = 0; i < tail.size(); i++) {
-            head.add(tail.pop());
-        }
-
-        for (int i = 0; i < head.size(); i++) {
-            tail.add(head.pop());
-
-        }
         tail.add(x);
     }
 
     public int pop() {
-        for (int i = 0; i < tail.size(); i++) {
+        int size = tail.size();
+        for (int i = 0; i < size; i++) {
             head.add(tail.pop());
         }
         int r = head.pop();
-        for (int i = 0; i < head.size(); i++) {
+        for (int i = 0; i < size - 1; i++) {
             tail.add(head.pop());
 
         }
@@ -34,11 +27,13 @@ class MyQueue {
     }
 
     public int peek() {
-        for (int i = 0; i < tail.size(); i++) {
+        int size = tail.size();
+
+        for (int i = 0; i < size; i++) {
             head.add(tail.pop());
         }
         int r = head.peek();
-        for (int i = 0; i < head.size(); i++) {
+        for (int i = 0; i < size; i++) {
             tail.add(head.pop());
 
         }
