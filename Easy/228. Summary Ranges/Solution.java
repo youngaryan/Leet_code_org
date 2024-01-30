@@ -1,24 +1,41 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Solution {
     public List<String> summaryRanges(int[] nums) {
-        List<String> re = new ArrayList<>();
+        if (nums.length == 0) {
+            return new ArrayList<>();
+        } else if (nums.length == 1) {
+            return new ArrayList<>(Arrays.asList(String.valueOf(nums[0])));
+        }
 
-        int k =0;
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] - nums[i-1] > 1){
-                re.add(nums[k] + "->" + nums[i-1]);
-                k = i;
-                System.out.println(k);
-            } else if (i == nums.length-1 && nums[i] - nums[i-1] > 1){
-                re.add(String.valueOf(nums[i]));
-            } else if (i == nums.length-1 && nums[i] - nums[i-1] < 1) {
-                re.add(nums[k] + "->" + nums[i-1]);
+        List<String> result = new ArrayList<>();
+        int left = 0, right = 1;
+
+        while (right < nums.length) {
+
+            if (nums[right] - 1 == nums[right - 1]) {
+                right++;
+            } else {
+                if (left == right - 1) {
+                    result.add(String.valueOf(nums[left]));
+                    left = right;
+                    right += 1;
+
+                } else {
+                    result.add(nums[left] + "->" + nums[right - 1]);
+                    left = right;
+                    right += 1;
+                }
             }
         }
 
-
-        return re;
+        if (left == right - 1) {
+            result.add(String.valueOf(nums[left]));
+        } else {
+            result.add(nums[left] + "->" + nums[right - 1]);
+        }
+        return result;
     }
 }
