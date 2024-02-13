@@ -1,10 +1,29 @@
+import java.util.Arrays;
+
 class Solution {
+    int[] memo;
+
     public int rob(int[] nums) {
-        int t1 = 0, t2 = 0;
-        if (nums.length == 1) {
-            return nums[nums.length - 1];
+        memo = new int[nums.length];
+        Arrays.fill(memo , -1);
+        return rob(nums, nums.length - 1);
+
+    }
+
+    private int rob(int[] nums, int i) {
+        if (i < 0) {
+            return 0;
+        }
+        if (memo[i] >= 0) {
+            return memo[i];
         }
 
-        return Math.max(rob(nums.));
+        int result = Math.max(rob(nums, i - 2) + nums[i], rob(nums, i - 1));
+        memo[i] = result; 
+        return result;
     }
 }
+/*
+ * [2,1,1,2]
+ * 4
+ */
