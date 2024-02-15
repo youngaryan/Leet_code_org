@@ -6,8 +6,8 @@ class Solution {
 
         // System.out.println(Arrays.toString(nums));
 
-        long currSum = nums[0] + nums[1] + nums[2];
-        int i = 3;
+        long currSum = 0;
+        int i = 0;
         // System.out.println(currSum);
 
         while (i < nums.length) {
