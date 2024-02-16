@@ -17,7 +17,7 @@ class Solution {
 
         int delete = 0;
 
-        while (delete < k && !pq.isEmpty()) {
+        while (delete < k) {
             delete += pq.poll();
             // System.out.println(pq.poll());
         }
