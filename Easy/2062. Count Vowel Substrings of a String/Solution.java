@@ -8,6 +8,7 @@ class Solution {
         // characters.add('i');
         // characters.add('o');
         int left = 0, right = 4, count = 0;
+        word+='2';
 
         while (left < right && right <= word.length()) {
 
