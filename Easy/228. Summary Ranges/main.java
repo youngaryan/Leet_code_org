@@ -1,6 +1,7 @@
-public class main {
+public class Main {
     public static void main(String[] args) {
-        Solution solution = new Solution();
-        System.out.println(solution.summaryRanges(new int[]{0,1,2,4,5,6,7}));
+        System.out.println(new Solution().summaryRanges(new int[] {
+                0, 1, 2, 4, 5, 7
+        }));
     }
 }

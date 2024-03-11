@@ -2,7 +2,7 @@ public class Main {
     public static void main(String[] args) {
         Solution s = new Solution();
 
-        System.out.println(s.guessNumber(2));
+        System.out.println(s.guessNumber(2126753390));
     }
 /* Input: n = 10, pick = 6
 Output: 6
