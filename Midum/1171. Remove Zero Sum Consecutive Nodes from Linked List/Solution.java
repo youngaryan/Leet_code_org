@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Definition for singly-linked list.
@@ -21,38 +22,45 @@ class Solution {
 
         // System.out.println("before : " + arrayNode);
 
-        int end, start = arrayNode.size() - 1, num;
-        for (int i = arrayNode.size() - 1; i >= 0 && start >= 0; i--) {
-            i -= (i - start);
-            end = i;
-            num = arrayNode.get(end);
+        HashSet<Integer> hashSet = new HashSet<>();
+        int num;
+        for (int i = 0; i < arrayNode.size(); i++) {
+            num = arrayNode.get(i);
+            if (num == 0) {
+                hashSet.add(i);
+                continue;
+            }
 
-            for (int j = i - 1; j >= 0; j--) {
-                if (num == 0) {
-                    start = j;
-
-                    while (end != start) {
-                        arrayNode.remove(end);
-                        // System.out.println(arrayNode);
-                        end--;
+            for (int j = i + 1; j < arrayNode.size(); j++) {
+                num += arrayNode.get(j);
+                if (num == 0  && !hashSet.contains(i)) {
+                    for (int j2 = i; j2 <= j; j2++) {
+                        hashSet.add(j2);
+                        // System.out.println(j2);
                     }
-
+                    i++;
                     break;
                 }
-                num += arrayNode.get(j);
-               
-                start = i - 1;
             }
         }
-        if (arrayNode.size() == 0) {
+
+        ArrayList<Integer> fin = new ArrayList<>();
+
+        for (int i = 0; i < arrayNode.size(); i++) {
+
+            if (!hashSet.contains(i)) {
+                fin.add(arrayNode.get(i));
+            }
+        }
+
+        if (fin.size() == 0) {
             return null;
         }
-        // System.out.println("after : " + arrayNode);
-        ListNode resHead = new ListNode(arrayNode.get(0));
+        ListNode resHead = new ListNode(fin.get(0));
         ListNode s = resHead;
-
-        for (int i = 1; i < arrayNode.size(); i++) {
-            s.next = new ListNode(arrayNode.get(i));
+        // System.out.println("after "+fin);
+        for (int i = 1; i < fin.size(); i++) {
+            s.next = new ListNode(fin.get(i));
             s = s.next;
         }
         return resHead;
