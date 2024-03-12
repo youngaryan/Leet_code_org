@@ -1,29 +1,32 @@
 class Solution {
     public int maxVowels(String s, int k) {
+        int max = 0, left = 0, right = k, localMax = -1;
+        while (left < s.length()) {
+            while (!isVowel(s.charAt(left))) {
+                left++;
+            }
+            localMax = 0;
+            right = left + k;
+            if (right > s.length()) {
+                right = s.length();
+            }
+            for (int i = left; i < right; i++) {
 
-        int t, max = 0, localMax, lastVow = 0;
-
-        for (int i = 0; i < s.length(); i+=k) {
-            if (isVowel(s.charAt(i))) {
-                t = 1;
-                lastVow = i;
-                localMax = 1;
-                while (i < s.length() - 1 && t < k) {
-                    i++;
-                    t++;
-
-                    if (isVowel(s.charAt(i))) {
-                        localMax++;
-                    }
-
+                if (isVowel(s.charAt(i))) {
+                    localMax++;
                 }
-                max = Math.max(localMax, max);
-                i = lastVow;
+            }
+
+            System.out.println(max);
+            System.out.println(left);
+            left = left + k > s.length() ? s.length() - k : left + k;
+            max = Math.max(max, localMax);
+            
+            if (left == s.length()) {
+                break;
             }
         }
-
         return max;
-
     }
 
     private boolean isVowel(char c) {
