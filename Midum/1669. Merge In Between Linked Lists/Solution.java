@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 /**
  * Definition for singly-linked list.
@@ -12,41 +11,30 @@ import java.util.ArrayList;
  */
 class Solution {
     public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
-        ArrayList<Integer> arrayList = new ArrayList<>();
-        b -= a;
+        ListNode cuurNode = list1;
 
-        while (a > 0) {
-            arrayList.add(list1.val);
-            list1 = list1.next;
-            a--;
+        int i = 1;
+
+        while (i < a) {
+            cuurNode = cuurNode.next;
+            i++;
         }
 
-        while (list2 != null) {
-            arrayList.add(list2.val);
+        ListNode head = cuurNode;
+
+        while (i <= b+1) {
+            cuurNode = cuurNode.next;
+            i++;
+        }
+
+        head.next = list2;
+
+        while (list2.next != null) {
             list2 = list2.next;
         }
 
-        while (b >= 0) {
-            list1 = list1.next;
-            b--;
-        }
-
-        while (list1 != null) {
-            arrayList.add(list1.val);
-            list1 = list1.next;
-
-        }
-        return createList(arrayList);
+        list2.next = cuurNode;
+        return list1;
     }
 
-    private ListNode createList(ArrayList<Integer> values) {
-        ListNode dummy = new ListNode(0);
-        ListNode current = dummy;
-        for (int value : values) {
-            current.next = new ListNode(value);
-            current = current.next;
-        }
-        return dummy.next;
-
-    }
 }
