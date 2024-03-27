@@ -2,26 +2,21 @@
 
 class Solution {
     public int numSubarrayProductLessThanK(int[] nums, int k) {
-        int count = 0, temPro = 1, i = 0, j = i;
+        if (k <= 1) {
+            return 0;
+        }
+        int count = 0, left = 0, temPro = 1;
 
-        // System.out.println(Arrays.toString(nums));
-        while (j < nums.length) {
-            temPro *= nums[i];
-            if (temPro >= k) {
-                temPro = 1;
-                j++;
-                i = j;
-                continue;
-            }
-            i++;
-            count++;
+        for (int right = 0; right < nums.length; right++) {
+            temPro *= nums[right];
 
-            if (i == nums.length) {
-                temPro = 1;
-                j++;
-                i = j;
+            while (temPro >= k) {
+                temPro /= nums[left];
+                left++;
+
             }
-            // System.out.println(count);
+            count += right - left + 1;
+
         }
 
         return count;
